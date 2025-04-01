@@ -1,0 +1,28 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  width: 80%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.preview img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+.share-buttons {
+  margin-top: 10px;
+}
+
+button {
+  margin: 5px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
