@@ -84,7 +84,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h1>Compartir Imagen en Redes Sociales</h1>
+      <h1>Compartir en Redes Sociales</h1>
 
       <input
         type="file"
