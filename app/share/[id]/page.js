@@ -1,6 +1,5 @@
 import { kv } from '@vercel/kv';
 import { notFound, redirect } from 'next/navigation';
-import { headers } from 'next/headers';
 
 // Lista de User-Agents de bots de redes sociales
 const socialMediaBots = [
@@ -19,7 +18,7 @@ function isBot(userAgent) {
   return socialMediaBots.some((bot) => ua.includes(bot.toLowerCase()));
 }
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params, request }) {
   try {
     const { id } = params;
     const data = await kv.get(`share:${id}`);
@@ -60,18 +59,26 @@ export async function generateMetadata({ params }) {
 export default async function SharePage({ params }) {
   try {
     const { id } = params;
-    const data = await kv.get(`share:${id}`);
 
+    // Leer los datos de Redis
+    const data = await kv.get(`share:${id}`);
     if (!data) {
+      console.log(`Data not found for ID: ${id}`);
       notFound();
     }
 
-    // Obtener el User-Agent de la solicitud usando next/headers
-    const headersList = headers();
-    const userAgent = headersList.get('user-agent') || '';
+    // Validar la URL de destino
+    if (!data.url || !data.url.startsWith('http')) {
+      console.error(`Invalid URL for ID ${id}: ${data.url}`);
+      throw new Error('Invalid destination URL');
+    }
+
+    // Obtener el User-Agent de los encabezados
+    const userAgent = (await import('next/headers')).headers().get('user-agent') || '';
 
     // Si la solicitud proviene de un bot de redes sociales, renderizar la página
     if (isBot(userAgent)) {
+      console.log(`Bot detected for ID ${id}: ${userAgent}`);
       return (
         <div className="container">
           <h1>{data.title}</h1>
@@ -88,9 +95,15 @@ export default async function SharePage({ params }) {
     }
 
     // Si la solicitud proviene de un usuario real, redirigir directamente a la URL de destino
+    console.log(`Redirecting to ${data.url} for ID ${id}`);
     redirect(data.url);
   } catch (error) {
     console.error('Error in SharePage:', error);
-    throw new Error('Failed to load share page');
+    return (
+      <div className="container">
+        <h1>Error</h1>
+        <p>An error occurred while loading this page. Please try again later.</p>
+      </div>
+    );
   }
 }
