@@ -49,22 +49,18 @@ export default async function SharePage({ params }) {
     }
 
     return (
-      <div className="container">
+      <div className="container share-page">
         <h1>{data.title}</h1>
         <p>{data.description}</p>
         <a href={data.url} target="_blank" rel="noopener noreferrer">
-          <img
-            src={data.imageUrl}
-            alt={data.title}
-            style={{ maxWidth: '100%', height: 'auto', cursor: 'pointer' }}
-          />
+          <img src={data.imageUrl} alt={data.title} />
         </a>
       </div>
     );
   } catch (error) {
     console.error('Error in SharePage:', error);
     return (
-      <div className="container">
+      <div className="container error-page">
         <h1>Error</h1>
         <p>An error occurred while loading this page. Please try again later.</p>
       </div>
