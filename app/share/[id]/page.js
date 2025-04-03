@@ -1,24 +1,7 @@
 import { kv } from '@vercel/kv';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-// Lista de User-Agents de bots de redes sociales
-const socialMediaBots = [
-  'facebookexternalhit', // Facebook
-  'Twitterbot', // Twitter
-  'LinkedInBot', // LinkedIn
-  'WhatsApp', // WhatsApp
-  'Slackbot', // Slack
-  'Googlebot', // Google (por si acaso)
-];
-
-// Función para verificar si la solicitud proviene de un bot
-function isBot(userAgent) {
-  if (!userAgent) return false;
-  const ua = userAgent.toLowerCase();
-  return socialMediaBots.some((bot) => ua.includes(bot.toLowerCase()));
-}
-
-export async function generateMetadata({ params, request }) {
+export async function generateMetadata({ params }) {
   try {
     const { id } = params;
     const data = await kv.get(`share:${id}`);
@@ -59,44 +42,25 @@ export async function generateMetadata({ params, request }) {
 export default async function SharePage({ params }) {
   try {
     const { id } = params;
-
-    // Leer los datos de Redis
     const data = await kv.get(`share:${id}`);
+
     if (!data) {
-      console.log(`Data not found for ID: ${id}`);
       notFound();
     }
 
-    // Validar la URL de destino
-    if (!data.url || !data.url.startsWith('http')) {
-      console.error(`Invalid URL for ID ${id}: ${data.url}`);
-      throw new Error('Invalid destination URL');
-    }
-
-    // Obtener el User-Agent de los encabezados
-    const userAgent = (await import('next/headers')).headers().get('user-agent') || '';
-
-    // Si la solicitud proviene de un bot de redes sociales, renderizar la página
-    if (isBot(userAgent)) {
-      console.log(`Bot detected for ID ${id}: ${userAgent}`);
-      return (
-        <div className="container">
-          <h1>{data.title}</h1>
-          <p>{data.description}</p>
-          <a href={data.url} target="_blank" rel="noopener noreferrer">
-            <img
-              src={data.imageUrl}
-              alt={data.title}
-              style={{ maxWidth: '100%', height: 'auto', cursor: 'pointer' }}
-            />
-          </a>
-        </div>
-      );
-    }
-
-    // Si la solicitud proviene de un usuario real, redirigir directamente a la URL de destino
-    console.log(`Redirecting to ${data.url} for ID ${id}`);
-    redirect(data.url);
+    return (
+      <div className="container">
+        <h1>{data.title}</h1>
+        <p>{data.description}</p>
+        <a href={data.url} target="_blank" rel="noopener noreferrer">
+          <img
+            src={data.imageUrl}
+            alt={data.title}
+            style={{ maxWidth: '100%', height: 'auto', cursor: 'pointer' }}
+          />
+        </a>
+      </div>
+    );
   } catch (error) {
     console.error('Error in SharePage:', error);
     return (
