@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function Home() {
-  const [imageUrl, setImageUrl] = useState(''); // Estado para la URL pública de la imagen
+  const [imageUrl, setImageUrl] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [url, setUrl] = useState('');
@@ -12,12 +12,10 @@ export default function Home() {
   const handleImageLoad = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Crear un FormData para enviar la imagen a la API Route
       const formData = new FormData();
       formData.append('image', file);
 
       try {
-        // Enviar la imagen a la ruta /api/upload
         const response = await fetch('/api/upload', {
           method: 'POST',
           body: formData,
@@ -26,7 +24,7 @@ export default function Home() {
         const data = await response.json();
 
         if (data.url) {
-          setImageUrl(data.url); // Actualizamos el estado con la URL pública
+          setImageUrl(data.url);
         } else {
           alert('Error al subir la imagen.');
         }
@@ -39,41 +37,78 @@ export default function Home() {
     }
   };
 
+  // Función para guardar los datos y obtener un ID
+  const saveShareData = async () => {
+    try {
+      const response = await fetch('/api/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          imageUrl,
+          url,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.id) {
+        return data.id;
+      } else {
+        throw new Error('Failed to save share data');
+      }
+    } catch (error) {
+      console.error('Error saving share data:', error);
+      throw error;
+    }
+  };
+
   // Función para compartir en redes sociales
-  const shareOnSocialMedia = (platform) => {
-    if (!imageUrl) {
-      alert('Debes cargar una imagen antes de compartir.');
+  const shareOnSocialMedia = async (platform) => {
+    if (!imageUrl || !title || !description || !url) {
+      alert('Por favor, completa todos los campos antes de compartir.');
       return;
     }
 
-    const encodedTitle = encodeURIComponent(title);
-    const encodedDescription = encodeURIComponent(description);
-    const encodedImageUrl = encodeURIComponent(imageUrl); // Ahora usamos la URL pública
-    const encodedUrl = encodeURIComponent(url);
+    try {
+      // Guardar los datos y obtener un ID
+      const id = await saveShareData();
 
-    let shareUrl = '';
+      // Crear la URL de la página intermedia
+      const shareUrl = `${window.location.origin}/share/${id}`;
+      const encodedShareUrl = encodeURIComponent(shareUrl);
+      const encodedTitle = encodeURIComponent(title);
+      const encodedDescription = encodeURIComponent(description);
 
-    switch (platform) {
-      case 'facebook':
-        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedImageUrl}`;
-        break;
-      case 'twitter':
-        shareUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}%20${encodedDescription}&url=${encodedUrl}`;
-        break;
-      case 'linkedin':
-        shareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
-        break;
-      case 'whatsapp':
-        shareUrl = `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedDescription}%20${encodedUrl}`;
-        break;
-      default:
-        return;
+      let socialUrl = '';
+
+      switch (platform) {
+        case 'facebook':
+          socialUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedShareUrl}`;
+          break;
+        case 'twitter':
+          socialUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}%20${encodedDescription}&url=${encodedShareUrl}`;
+          break;
+        case 'linkedin':
+          socialUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedShareUrl}`;
+          break;
+        case 'whatsapp':
+          socialUrl = `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedDescription}%20${encodedShareUrl}`;
+          break;
+        default:
+          return;
+      }
+
+      window.open(socialUrl, '_blank');
+    } catch (error) {
+      alert('Error al compartir. Intenta de nuevo.');
     }
-
-    window.open(shareUrl, '_blank');
   };
 
-  // Función para manejar el clic en la imagen
+  // Función para manejar el clic en la imagen (vista previa local)
   const handleImageClick = () => {
     if (url) {
       window.open(url, '_blank');
@@ -84,7 +119,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h1>Compartir en Redes Sociales</h1>
+      <h1>Compartir Imagen en Redes Sociales</h1>
 
       <input
         type="file"
