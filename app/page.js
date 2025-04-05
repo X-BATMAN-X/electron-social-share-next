@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { kv } from '@vercel/kv';
 import { nanoid } from 'nanoid';
+import Image from 'next/image'; // Importar Image de next/image
 
 export default function Home() {
   const [imageUrl, setImageUrl] = useState('');
@@ -86,7 +87,15 @@ export default function Home() {
 
       <div className="preview">
         {imageUrl ? (
-          <img id="previewImage" src={imageUrl} alt="Vista previa" onClick={handleImageClick} style={{ cursor: url ? 'pointer' : 'default' }} />
+          <Image
+            id="previewImage"
+            src={imageUrl}
+            alt="Vista previa"
+            width={500} // Ajusta según el tamaño máximo esperado
+            height={500} // Ajusta según el tamaño máximo esperado
+            style={{ cursor: url ? 'pointer' : 'default' }}
+            onClick={handleImageClick}
+          />
         ) : (
           <p>Selecciona una imagen para ver la vista previa</p>
         )}

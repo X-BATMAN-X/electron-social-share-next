@@ -1,14 +1,24 @@
 import './globals.css';
+import { Inter } from 'next/font/google';
+
+// Configurar la fuente Inter
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  display: 'swap',
+});
 
 export const metadata = {
   title: 'Comparte tu enlace con una imagen',
-  description: 'Sube una imagen y compártelo con una vista previa única.',
+  description: 'Sube una imagen y compártelo en redes sociales con una vista previa única.',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" /><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" /><link rel="icon" href="/favicon.ico?v=3" /></head>
+    <html lang="en" className={inter.className}>
+      <head>
+        <link rel="icon" href="/favicon.ico?v=3" />
+      </head>
       <body>{children}</body>
     </html>
   );
