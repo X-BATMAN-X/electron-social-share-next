@@ -108,10 +108,12 @@ export default function Home() {
         </div>
       )}
 
-      <footer style={{ marginTop: '40px', textAlign: 'center', color: '#b0b0b0', fontSize: '0.9rem' }}>
-        <a href="/politica-de-privacidad" target="_blank" rel="noopener noreferrer">Política de Privacidad</a> | 
-        <a href="/terminos-de-uso" target="_blank" rel="noopener noreferrer">Términos de Uso</a> | 
-        Desarrollado por <a href="https://buymeacoffee.com/carlosespinoza" target="_blank" rel="noopener noreferrer">Carlos Espinoza</a>
+      <footer>
+        <a href="/politica-de-privacidad" target="_blank" rel="noopener noreferrer">Política de Privacidad</a>
+        <span> | </span>
+        <a href="/terminos-de-uso" target="_blank" rel="noopener noreferrer">Términos de Uso</a>
+        <span> | Desarrollado por </span>
+        <a href="https://buymeacoffee.com/carlosespinoza" target="_blank" rel="noopener noreferrer">Carlos Espinoza</a>
       </footer>
     </div>
   );
