@@ -22,7 +22,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* Ajustar justify-content para que el footer siempre sea visible */
+  justify-content: space-between;
 }
 
 /* Títulos */
