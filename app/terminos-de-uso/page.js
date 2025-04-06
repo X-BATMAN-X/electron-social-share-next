@@ -26,8 +26,9 @@ export default function TermsOfUse() {
 
       <h2>4. Limitación de responsabilidad</h2>
       <p>
-        No nos responsabilizamos por el uso indebido de los enlaces generados ni por el contenido compartido por los usuarios. La aplicación se ofrece "tal cual" sin garantías de disponibilidad.
+       No nos responsabilizamos por el uso indebido de los enlaces generados ni por el contenido compartido por los usuarios. La aplicación se ofrece &quot;tal cual&quot; sin garantías de disponibilidad.
       </p>
+
 
       <h2>5. Terminación</h2>
       <p>
