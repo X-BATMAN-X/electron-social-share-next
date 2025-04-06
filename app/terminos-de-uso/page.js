@@ -2,7 +2,7 @@ export default function TermsOfUse() {
   return (
     <div className="container">
       <h1>Términos de Uso</h1>
-      <p>Última actualización: 04 de abril de 2025</p>
+      <p>Última actualización: 05 de abril de 2025</p>
 
       <h2>1. Aceptación de los términos</h2>
       <p>
