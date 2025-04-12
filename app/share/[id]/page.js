@@ -1,6 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
 import Head from 'next/head';
-import Image from 'next/image';
 
 // Inicializar el cliente de Supabase
 const supabase = createClient(
@@ -11,6 +10,7 @@ const supabase = createClient(
 export default async function SharePage({ params }) {
   const { id } = params;
 
+  // Obtener datos de Supabase
   const { data, error } = await supabase
     .from('shares')
     .select('*')
@@ -25,12 +25,21 @@ export default async function SharePage({ params }) {
 
   const shareData = data;
 
-  const currentUrl = `https://compartir-datos.vercel.app/share/${shareData.id}`; // Reemplaza con tu dominio real
-
-  if (typeof window !== 'undefined') {
-    window.location.href = shareData.url;
+  // Asegurarnos de que la URL de destino tenga el formato correcto
+  let destinationUrl = shareData.url;
+  if (!destinationUrl.startsWith('http://') && !destinationUrl.startsWith('https://')) {
+    destinationUrl = `https://${destinationUrl}`; // Añadir https:// si no está presente
   }
 
+  // Construir la URL actual de la página (para los metadatos)
+  const currentUrl = `https://comparte.vercel.app/share/${shareData.id}`; // Reemplaza con tu dominio real
+
+  // Redirigir inmediatamente en el cliente
+  if (typeof window !== 'undefined') {
+    window.location.href = destinationUrl;
+  }
+
+  // Proporcionar metadatos para la vista previa (Open Graph y Twitter Cards)
   return (
     <>
       <Head>
@@ -45,21 +54,12 @@ export default async function SharePage({ params }) {
         <meta name="twitter:title" content={shareData.title} />
         <meta name="twitter:description" content={shareData.description} />
         <meta name="twitter:image" content={shareData.image_url} />
+        {/* Redirigir inmediatamente usando meta refresh como respaldo */}
+        <meta httpEquiv="refresh" content={`0;url=${destinationUrl}`} />
       </Head>
-
-      <div style={{ textAlign: 'center', padding: '20px' }}>
-        <h1>{shareData.title}</h1>
-        <p>{shareData.description}</p>
-        <Image
-          src={shareData.image_url}
-          alt={shareData.title}
-          width={500}
-          height={500}
-          style={{ width: 'auto', height: 'auto' }}
-        />
-        <p>
-          Redirigiendo a <a href={shareData.url}>{shareData.url}</a>...
-        </p>
+      {/* No renderizamos contenido visible, pero mantenemos un mensaje por si la redirección falla */}
+      <div style={{ display: 'none' }}>
+        Redirigiendo a {destinationUrl}...
       </div>
     </>
   );

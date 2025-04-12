@@ -59,25 +59,32 @@ export default function Home() {
   };
 
   const shareOnSocialMedia = (platform) => {
+    console.log('Iniciando shareOnSocialMedia para:', platform);
+  
     const missingFields = [];
     if (!imageUrl) missingFields.push('imagen');
     if (!title) missingFields.push('título');
     if (!description) missingFields.push('descripción');
     if (!url) missingFields.push('URL');
-
+  
     if (missingFields.length > 0) {
+      console.log('Campos faltantes:', missingFields);
       alert(`Por favor, completa los siguientes campos: ${missingFields.join(', ')}.`);
       return;
     }
-
+  
+    console.log('Abriendo ventana emergente...');
     const newWindow = window.open('', '_blank');
     if (!newWindow) {
+      console.log('No se pudo abrir la ventana emergente');
       alert('No se pudo abrir la ventana de la red social. Por favor, permite las ventanas emergentes en tu navegador.');
       return;
     }
-
+  
+    console.log('Ventana emergente abierta, mostrando mensaje de carga');
     newWindow.document.write('<h1>Cargando...</h1>');
-
+  
+    console.log('Enviando solicitud a /api/share:', { imageUrl, title, description, url });
     fetch('/api/share', {
       method: 'POST',
       headers: {
@@ -88,34 +95,46 @@ export default function Home() {
       .then((response) => {
         console.log('Respuesta de /api/share:', response.status, response.statusText);
         if (!response.ok) {
-          throw new Error('Error al compartir en redes sociales');
+          throw new Error(`Error al compartir en redes sociales: ${response.statusText}`);
         }
         return response.json();
       })
       .then((data) => {
         console.log('Datos recibidos de /api/share:', data);
-
-        const shareUrl = data.shareUrl;
+  
+        const shareUrl = data.shareUrl; // URL intermedia (https://comparte.vercel.app/share/10)
+        if (!shareUrl) {
+          throw new Error('No se recibió shareUrl de /api/share');
+        }
+  
         console.log('Enlace compartido recibido:', shareUrl);
         setShareLink(shareUrl);
-
+  
+        // Formatear la URL de destino
+        let formattedUrl = url.trim();
+        if (!formattedUrl.startsWith('http://') && !formattedUrl.startsWith('https://')) {
+          formattedUrl = `https://${formattedUrl}`;
+        }
+  
         let socialMediaUrl;
         if (platform === 'facebook') {
+          // Usamos la URL intermedia para los metadatos, pero la redirección ya está manejada en app/share/[id]/page.js
           socialMediaUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
         } else if (platform === 'twitter') {
-          socialMediaUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`;
+          socialMediaUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(formattedUrl)}&text=${encodeURIComponent(title)}`;
         } else if (platform === 'linkedin') {
-          socialMediaUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(shareUrl)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description)}`;
+          socialMediaUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(formattedUrl)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description)}`;
         } else if (platform === 'whatsapp') {
-          socialMediaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title}: ${shareUrl}`)}`;
+          socialMediaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${title}: ${formattedUrl}`)}`;
         }
-
+  
         console.log('URL de red social generada:', socialMediaUrl);
-
+  
         if (!socialMediaUrl) {
           throw new Error('No se generó una URL válida para la red social');
         }
-
+  
+        console.log('Redirigiendo ventana emergente a:', socialMediaUrl);
         newWindow.location.href = socialMediaUrl;
       })
       .catch((error) => {
