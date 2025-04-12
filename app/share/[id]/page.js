@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import Head from 'next/head';
 import Image from 'next/image';
 
-// Inicializar el cliente de Supabase
+// Iniciar el cliente de Supabase
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY

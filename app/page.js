@@ -144,11 +144,11 @@ export default function Home() {
       </section>
 
       <section className="intro-text">
-        <p>Incrusta tu URL en una imagen atractiva y compártela en redes sociales con un solo clic.</p>
+        <p>Incrusta tu URL en una imagen y compártela en redes sociales con un solo clic.</p>
       </section>
 
       <section className="form-section">
-        <h2>Crea tu tarjeta social</h2>
+        <h2>Crea tu publicación</h2>
         <input type="file" id="imageInput" accept="image/*" onChange={handleImageLoad} />
         <input
           type="text"
