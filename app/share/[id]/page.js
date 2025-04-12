@@ -1,60 +1,73 @@
-import { kv } from '@vercel/kv';
-import Image from 'next/image'; // Importar Image de next/image
+import { createClient } from '@supabase/supabase-js';
+import Head from 'next/head';
+import Image from 'next/image';
 
-export async function generateMetadata({ params }) {
-  const id = params.id;
-  const shareData = await kv.get(`share:${id}`);
+// Inicializar el cliente de Supabase
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
-  if (!shareData) {
+export async function getServerSideProps({ params }) {
+  const { id } = params;
+
+  const { data, error } = await supabase
+    .from('shares')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error || !data) {
     return {
-      title: 'Enlace no encontrado',
-      description: 'El enlace que intentas acceder no existe o ha expirado.',
+      notFound: true,
     };
   }
 
   return {
-    title: shareData.title,
-    description: shareData.description,
-    openGraph: {
-      title: shareData.title,
-      description: shareData.description,
-      images: [
-        {
-          url: shareData.imageUrl,
-          width: 1200,
-          height: 630,
-          alt: shareData.title,
-        },
-      ],
+    props: {
+      shareData: data,
     },
   };
 }
 
-export default async function SharePage({ params }) {
-  const id = params.id;
-  const shareData = await kv.get(`share:${id}`);
+export default function SharePage({ shareData }) {
+  // Construir la URL actual de la página
+  const currentUrl = `https://compartir-datos.vercel.app/share/${shareData.id}`; // Reemplaza con tu dominio real
 
-  if (!shareData) {
-    return (
-      <div className="error-page">
-        <h1>Enlace no encontrado</h1>
-        <p>El enlace que intentas acceder no existe o ha expirado.</p>
-      </div>
-    );
+  if (typeof window !== 'undefined') {
+    window.location.href = shareData.url;
   }
 
   return (
-    <div className="share-page">
-      <a href={shareData.url} target="_blank" rel="noopener noreferrer">
+    <>
+      <Head>
+        <title>{shareData.title}</title>
+        <meta name="description" content={shareData.description} />
+        <meta property="og:title" content={shareData.title} />
+        <meta property="og:description" content={shareData.description} />
+        <meta property="og:image" content={shareData.image_url} />
+        <meta property="og:url" content={currentUrl} /> {/* Usar la URL actual */}
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={shareData.title} />
+        <meta name="twitter:description" content={shareData.description} />
+        <meta name="twitter:image" content={shareData.image_url} />
+      </Head>
+
+      <div style={{ textAlign: 'center', padding: '20px' }}>
+        <h1>{shareData.title}</h1>
+        <p>{shareData.description}</p>
         <Image
-          src={shareData.imageUrl}
+          src={shareData.image_url}
           alt={shareData.title}
-          width={1200} // Ajusta según el tamaño esperado para Open Graph
-          height={630} // Ajusta según el tamaño esperado para Open Graph
+          width={500}
+          height={500}
+          style={{ width: 'auto', height: 'auto' }}
         />
-      </a>
-      <h1>{shareData.title}</h1>
-      <p>{shareData.description}</p>
-    </div>
+        <p>
+          Redirigiendo a <a href={shareData.url}>{shareData.url}</a>...
+        </p>
+      </div>
+    </>
   );
 }

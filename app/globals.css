@@ -106,7 +106,7 @@ h1, h2, h3 {
 
 /* Colores específicos para cada botón */
 .facebook-btn {
-  background-color: #3b5998;
+  background-color: #3b5998; /* Azul oscuro */
 }
 
 .facebook-btn:hover {
@@ -114,7 +114,7 @@ h1, h2, h3 {
 }
 
 .twitter-btn {
-  background-color: #1da1f2;
+  background-color: #1da1f2; /* Azul claro */
 }
 
 .twitter-btn:hover {
@@ -122,7 +122,7 @@ h1, h2, h3 {
 }
 
 .linkedin-btn {
-  background-color: #0077b5;
+  background-color: #0077b5; /* Azul medio */
 }
 
 .linkedin-btn:hover {
@@ -130,19 +130,11 @@ h1, h2, h3 {
 }
 
 .whatsapp-btn {
-  background-color: #25d366;
+  background-color: #25d366; /* Verde */
 }
 
 .whatsapp-btn:hover {
   background-color: #1da851;
-}
-
-.copy-btn {
-  background-color: #555;
-}
-
-.copy-btn:hover {
-  background-color: #444;
 }
 
 /* Estilos para el separador de contenido */
@@ -173,6 +165,48 @@ h1, h2, h3 {
 
 .faq-section ol {
   padding-left: 1.5rem;
+}
+
+/* Estilos para la página compartida */
+.share-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.share-page img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.share-page h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.share-page p {
+  font-size: 1.1rem;
+  color: #a1a1a1;
+}
+
+/* Estilos para la página de error */
+.error-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.error-page h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.error-page p {
+  font-size: 1.1rem;
+  color: #a1a1a1;
 }
 
 /* Estilos para el footer */
