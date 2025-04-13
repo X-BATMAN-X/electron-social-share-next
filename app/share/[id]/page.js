@@ -34,8 +34,12 @@ export default async function SharePage({ params }) {
   // Construir la URL actual de la página (para los metadatos)
   const currentUrl = `https://comparte.vercel.app/share/${shareData.id}`; // Reemplaza con tu dominio real
 
-  // Redirigir inmediatamente en el cliente
-  if (typeof window !== 'undefined') {
+  // Detectar si la solicitud proviene de un bot de redes sociales (como Facebook)
+  const userAgent = typeof window !== 'undefined' ? navigator.userAgent : '';
+  const isSocialMediaBot = /facebookexternalhit|twitterbot|linkedinbot/i.test(userAgent);
+
+  // Si es un bot, no redirigir y permitir que scrapee los metadatos
+  if (!isSocialMediaBot && typeof window !== 'undefined') {
     window.location.href = destinationUrl;
   }
 
@@ -54,8 +58,10 @@ export default async function SharePage({ params }) {
         <meta name="twitter:title" content={shareData.title} />
         <meta name="twitter:description" content={shareData.description} />
         <meta name="twitter:image" content={shareData.image_url} />
-        {/* Redirigir inmediatamente usando meta refresh como respaldo */}
-        <meta httpEquiv="refresh" content={`0;url=${destinationUrl}`} />
+        {/* Redirigir como respaldo, pero con un pequeño retraso para permitir el scraping */}
+        {!isSocialMediaBot && (
+          <meta httpEquiv="refresh" content={`2;url=${destinationUrl}`} />
+        )}
       </Head>
       {/* No renderizamos contenido visible, pero mantenemos un mensaje por si la redirección falla */}
       <div style={{ display: 'none' }}>
