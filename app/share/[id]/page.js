@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
-import Head from 'next/head';
 import { redirect } from 'next/navigation';
+import { headers } from 'next/headers'; // Importar headers para acceder al user-agent
 
 // Inicializar el cliente de Supabase
 const supabase = createClient(
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function SharePage({ params, searchParams }) {
+export default async function SharePage({ params }) {
   const { id } = params;
 
   // Obtener datos de Supabase
@@ -77,15 +77,16 @@ export default async function SharePage({ params, searchParams }) {
     destinationUrl = `https://${destinationUrl}`; // Añadir https:// si no está presente
   }
 
-  // Detectar si la solicitud proviene de un bot de redes sociales
-  const userAgent = (typeof window !== 'undefined' ? navigator.userAgent : '') || '';
+  // Detectar si la solicitud proviene de un bot de redes sociales usando las cabeceras
+  const requestHeaders = headers();
+  const userAgent = requestHeaders.get('user-agent') || '';
   const isSocialMediaBot = /facebookexternalhit|twitterbot|linkedinbot/i.test(userAgent);
 
   // Si es un bot, devolver los metadatos sin redirigir
   if (isSocialMediaBot) {
     return (
-      <>
-        <Head>
+      <html>
+        <head>
           <title>{shareData.title}</title>
           <meta name="description" content={shareData.description} />
           <meta property="og:title" content={shareData.title} />
@@ -99,11 +100,13 @@ export default async function SharePage({ params, searchParams }) {
           <meta name="twitter:title" content={shareData.title} />
           <meta name="twitter:description" content={shareData.description} />
           <meta name="twitter:image" content={shareData.image_url} />
-        </Head>
-        <div style={{ display: 'none' }}>
-          Redirigiendo a {destinationUrl}...
-        </div>
-      </>
+        </head>
+        <body>
+          <div style={{ display: 'none' }}>
+            Redirigiendo a {destinationUrl}...
+          </div>
+        </body>
+      </html>
     );
   }
 
