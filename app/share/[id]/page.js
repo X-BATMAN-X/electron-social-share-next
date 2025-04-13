@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import Head from 'next/head';
+import { redirect } from 'next/navigation'; // Importar redirect para redirecciones en el servidor
 
 // Inicializar el cliente de Supabase
 const supabase = createClient(
@@ -34,16 +35,17 @@ export default async function SharePage({ params }) {
   // Construir la URL actual de la página (para los metadatos)
   const currentUrl = `https://comparte.vercel.app/share/${shareData.id}`; // Reemplaza con tu dominio real
 
-  // Detectar si la solicitud proviene de un bot de redes sociales (como Facebook)
-  const userAgent = typeof window !== 'undefined' ? navigator.userAgent : '';
+  // Detectar si la solicitud proviene de un bot de redes sociales
+  const headers = new Headers();
+  const userAgent = headers.get('user-agent') || '';
   const isSocialMediaBot = /facebookexternalhit|twitterbot|linkedinbot/i.test(userAgent);
 
-  // Si es un bot, no redirigir y permitir que scrapee los metadatos
-  if (!isSocialMediaBot && typeof window !== 'undefined') {
-    window.location.href = destinationUrl;
+  // Si no es un bot, redirigir inmediatamente en el servidor
+  if (!isSocialMediaBot) {
+    redirect(destinationUrl); // Redirección en el servidor
   }
 
-  // Proporcionar metadatos para la vista previa (Open Graph y Twitter Cards)
+  // Si es un bot, devolver los metadatos para el scraping
   return (
     <>
       <Head>
@@ -52,18 +54,16 @@ export default async function SharePage({ params }) {
         <meta property="og:title" content={shareData.title} />
         <meta property="og:description" content={shareData.description} />
         <meta property="og:image" content={shareData.image_url} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={shareData.title} />
         <meta name="twitter:description" content={shareData.description} />
         <meta name="twitter:image" content={shareData.image_url} />
-        {/* Redirigir como respaldo, pero con un pequeño retraso para permitir el scraping */}
-        {!isSocialMediaBot && (
-          <meta httpEquiv="refresh" content={`2;url=${destinationUrl}`} />
-        )}
       </Head>
-      {/* No renderizamos contenido visible, pero mantenemos un mensaje por si la redirección falla */}
+      {/* No renderizamos contenido visible para los bots */}
       <div style={{ display: 'none' }}>
         Redirigiendo a {destinationUrl}...
       </div>

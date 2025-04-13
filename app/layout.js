@@ -1,6 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
-import Script from 'next/script'; // Importar Script de next/script
+import Script from 'next/script';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -14,11 +14,11 @@ export const metadata = {
   openGraph: {
     title: 'Comparte tu enlace con una imagen',
     description: 'Sube una imagen y compártelo en redes sociales con una vista previa única.',
-    url: 'https://comparte.vercel.app', // URL base de tu sitio
+    url: 'https://comparte.vercel.app',
     type: 'website',
     images: [
       {
-        url: '/images/default-preview.jpg', // Asegúrate de tener una imagen predeterminada en /public/images/
+        url: 'https://via.placeholder.com/1200x630?text=Comparte+tu+enlace',
         width: 1200,
         height: 630,
         alt: 'Comparte tu enlace con una imagen',
@@ -29,7 +29,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Comparte tu enlace con una imagen',
     description: 'Sube una imagen y compártelo en redes sociales con una vista previa única.',
-    images: ['/images/default-preview.jpg'], // Imagen predeterminada para Twitter
+    images: ['https://via.placeholder.com/1200x630?text=Comparte+tu+enlace'],
   },
 };
 
@@ -41,12 +41,11 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        {/* Script de AdSense usando el componente Script de Next.js */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6479199056016392"
           crossOrigin="anonymous"
-          strategy="lazyOnload" // Carga el script después de que la página esté interactiva
+          strategy="lazyOnload"
         />
       </body>
     </html>
