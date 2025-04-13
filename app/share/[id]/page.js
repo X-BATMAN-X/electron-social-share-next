@@ -1,6 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { redirect } from 'next/navigation';
-import { headers } from 'next/headers'; // Importar headers para acceder al user-agent
+import { headers } from 'next/headers';
 
 // Inicializar el cliente de Supabase
 const supabase = createClient(
@@ -96,6 +96,7 @@ export default async function SharePage({ params }) {
           <meta property="og:image:height" content="630" />
           <meta property="og:url" content={`https://comparte.vercel.app/share/${shareData.id}`} />
           <meta property="og:type" content="website" />
+          <meta property="fb:app_id" content="TU_APP_ID_AQUÍ" /> {/* Reemplaza con tu App ID */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={shareData.title} />
           <meta name="twitter:description" content={shareData.description} />
