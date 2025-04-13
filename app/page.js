@@ -102,7 +102,7 @@ export default function Home() {
       .then((data) => {
         console.log('Datos recibidos de /api/share:', data);
   
-        const shareUrl = data.shareUrl; // URL intermedia (https://comparte.vercel.app/share/10)
+        const shareUrl = data.shareUrl; // URL intermedia (https://comparte.vercel.app/share/19)
         if (!shareUrl) {
           throw new Error('No se recibió shareUrl de /api/share');
         }
@@ -118,8 +118,8 @@ export default function Home() {
   
         let socialMediaUrl;
         if (platform === 'facebook') {
-          // Usamos la URL intermedia para los metadatos, pero la redirección ya está manejada en app/share/[id]/page.js
-          socialMediaUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+          // Usar la URL intermedia para los metadatos, pero intentar que el enlace final sea la URL de destino
+          socialMediaUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&redirect_uri=${encodeURIComponent(formattedUrl)}`;
         } else if (platform === 'twitter') {
           socialMediaUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(formattedUrl)}&text=${encodeURIComponent(title)}`;
         } else if (platform === 'linkedin') {
