@@ -36,11 +36,7 @@ h1, h2, h3 {
 .hero-image, .faq-image {
   text-align: center;
   margin-bottom: 2rem;
-}
-
-.hero-image img, .faq-image img {
-  max-width: 100%;
-  height: auto;
+  max-width: 100%; /* Aseguramos que el contenedor no exceda el ancho disponible */
 }
 
 /* Estilos para el texto introductorio */
@@ -102,6 +98,22 @@ h1, h2, h3 {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
+}
+
+/* Ajustes para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  .share-buttons {
+    flex-direction: column; /* Apila los botones verticalmente */
+    align-items: center; /* Centra los botones verticalmente */
+    gap: 0.5rem; /* Reduce el espacio entre botones */
+  }
+
+  .share-buttons button {
+    width: 100%; /* Los botones ocupan todo el ancho disponible */
+    max-width: 300px; /* Limita el ancho máximo para que no se vean demasiado anchos */
+    padding: 0.75rem; /* Aumenta el padding para mejor toque */
+    font-size: 0.9rem; /* Reduce ligeramente el tamaño de la fuente */
+  }
 }
 
 /* Colores específicos para cada botón */
