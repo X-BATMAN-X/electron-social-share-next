@@ -160,15 +160,16 @@ export default function Home() {
       </section>
 
       <section className="hero-image">
-        <Image
-          src="/images/share1.webp"
-          alt="Ejemplo de tarjeta social 1"
-          width={800}
-          height={400}
-          style={{ borderRadius: '8px', width: 'auto', height: 'auto' }}
-          priority
-        />
-      </section>
+  <Image
+    src="/images/share1.webp"
+    alt="Ejemplo de tarjeta social 1"
+    width={800}
+    height={400}
+    sizes="(max-width: 800px) 100vw, 800px" // Define tamaños responsivos
+    style={{ borderRadius: '8px' }} // Solo el borde redondeado
+    priority
+  />
+</section>
 
       <section className="intro-text">
         <p>Incrusta tu URL en una imagen y compártela en redes sociales con un solo clic.</p>
@@ -323,14 +324,15 @@ export default function Home() {
       </section>
 
       <section className="faq-image">
-        <Image
-          src="/images/share2.webp"
-          alt="Ejemplo de tarjeta social 2"
-          width={800}
-          height={400}
-          style={{ borderRadius: '8px', width: 'auto', height: 'auto' }}
-        />
-      </section>
+  <Image
+    src="/images/share2.webp"
+    alt="Ejemplo de tarjeta social 2"
+    width={800}
+    height={400}
+    sizes="(max-width: 800px) 100vw, 800px" // Define tamaños responsivos
+    style={{ borderRadius: '8px' }} // Solo el borde redondeado
+  />
+</section>
 
       <footer>
         <a href="/politica-de-privacidad" target="_blank" rel="noopener noreferrer">

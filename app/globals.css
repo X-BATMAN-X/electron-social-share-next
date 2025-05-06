@@ -36,7 +36,22 @@ h1, h2, h3 {
 .hero-image, .faq-image {
   text-align: center;
   margin-bottom: 2rem;
-  max-width: 100%; /* Aseguramos que el contenedor no exceda el ancho disponible */
+  max-width: 100%; /* Limita el contenedor al ancho disponible */
+  overflow: hidden; /* Evita que las imágenes se desborden */
+}
+
+.hero-image img, .faq-image img {
+  width: 100%; /* La imagen ocupa el 100% del contenedor */
+  height: auto; /* Mantiene la proporción original */
+  border-radius: 8px; /* Mantiene el borde redondeado */
+  object-fit: cover; /* Ajusta la imagen para llenar el contenedor sin distorsión */
+}
+
+/* Ajustes para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  .hero-image, .faq-image {
+    padding: 0 1rem; /* Añade padding para no pegar las imágenes a los bordes */
+  }
 }
 
 /* Estilos para el texto introductorio */
