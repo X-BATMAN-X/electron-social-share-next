@@ -18,6 +18,8 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    console.log('Iniciando limpieza de filas antiguas...');
+
     // Eliminar filas más antiguas de 30 días
     const { data, error } = await supabase
       .from('shares')
@@ -25,12 +27,15 @@ export async function POST(request) {
       .lt('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
 
     if (error) {
-      console.error('Error al eliminar filas antiguas:', error);
+      console.error('Error al eliminar filas antiguas:', error.message);
       return NextResponse.json({ error: 'Failed to cleanup shares', details: error.message }, { status: 500 });
     }
 
-    console.log('Filas eliminadas:', data);
-    return NextResponse.json({ message: 'Cleanup successful', deletedRows: data.length }, { status: 200 });
+    // Verificar si data es null o un array vacío
+    const deletedRows = data ? data.length : 0;
+    console.log('Filas eliminadas:', deletedRows);
+
+    return NextResponse.json({ message: 'Cleanup successful', deletedRows }, { status: 200 });
   } catch (error) {
     console.error('Error en /api/cleanup:', error.message);
     return NextResponse.json({ error: 'Failed to process cleanup request', details: error.message }, { status: 500 });
