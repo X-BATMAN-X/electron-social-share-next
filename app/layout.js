@@ -1,6 +1,8 @@
+'use client'; // Indica que este componente se ejecuta en el cliente
+
 import './globals.css';
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
+import { useEffect } from 'react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -34,19 +36,29 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/sw.js')
+          .then((registration) => {
+            console.log('Service Worker registrado con éxito:', registration);
+          })
+          .catch((error) => {
+            console.error('Error al registrar el Service Worker:', error);
+          });
+      });
+    }
+  }, []);
+
   return (
     <html lang="es" className={inter.className}>
       <head>
         <link rel="icon" href="/favicon.ico?v=3" />
+        <meta name="monetag" content="de9eb78f0da9aa39257142df32b3370d" />
       </head>
       <body>
         {children}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6479199056016392"
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
       </body>
     </html>
   );
