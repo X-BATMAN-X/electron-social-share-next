@@ -7,15 +7,28 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Clave secreta para proteger el endpoint (puedes configurarla en las variables de entorno)
-const CLEANUP_SECRET = process.env.CLEANUP_SECRET || 'your-secret-key';
+// Clave secreta para proteger el endpoint
+const CLEANUP_SECRET = process.env.CLEANUP_SECRET;
 
 export async function POST(request) {
   try {
     // Verificar la clave secreta
     const authHeader = request.headers.get('authorization');
-    if (!authHeader || authHeader !== `Bearer ${CLEANUP_SECRET}`) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    console.log('Authorization Header recibido:', authHeader);
+
+    if (!CLEANUP_SECRET) {
+      console.error('CLEANUP_SECRET no está configurado en las variables de entorno');
+      return NextResponse.json({ error: 'Server configuration error: CLEANUP_SECRET not set' }, { status: 500 });
+    }
+
+    if (!authHeader) {
+      console.log('No se proporcionó el header Authorization');
+      return NextResponse.json({ error: 'Unauthorized: Missing Authorization header' }, { status: 401 });
+    }
+
+    if (authHeader !== `Bearer ${CLEANUP_SECRET}`) {
+      console.log('Clave secreta incorrecta. Esperado:', `Bearer ${CLEANUP_SECRET}`, 'Recibido:', authHeader);
+      return NextResponse.json({ error: 'Unauthorized: Invalid secret key' }, { status: 401 });
     }
 
     console.log('Iniciando limpieza de filas antiguas...');
