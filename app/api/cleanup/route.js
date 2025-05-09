@@ -37,7 +37,7 @@ export async function POST(request) {
     const { data, error } = await supabase
       .from('shares')
       .delete()
-      .lt('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString());
+      .lt('created_at', new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString())
 
     if (error) {
       console.error('Error al eliminar filas antiguas:', error.message);
