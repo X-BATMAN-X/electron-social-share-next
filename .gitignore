@@ -1,7 +1,37 @@
+# Dependencias
+node_modules/
+.next/
+.vercel
+out/
+
+# Archivos de compilación y caché
+build/
+dist/
+.cache/
+*.log
+*.log.*
+*.tsbuildinfo
+
+# Archivos de entorno
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
-node_modules/
-.vercel
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Archivos de VS Code
+.vscode/
+
+# Archivos de macOS
+.DS_Store
+
+# Archivos generados por Next.js
+.next/*
+!.next/cache/images # Si quieres mantener imágenes optimizadas, pero normalmente no es necesario
+
+# Archivos de caché de imágenes
+.next/cache/images/*
