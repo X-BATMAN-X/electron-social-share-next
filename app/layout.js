@@ -41,35 +41,11 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
-        {/* Script para Vignette Banner */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('gizokraijaw.net',9314133,document.createElement('script'));`,
+            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9317103,document.createElement('script'));`,
           }}
         />
-        {/* Script para In-Page Push */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(d,z,s){s.src='https://'+d+'/400/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('vemtoutcheeg.com',9316819,document.createElement('script'));`,
-          }}
-        />
-        {/* Enlace discreto para Direct Link */}
-        <div style={{ marginTop: '10px', textAlign: 'center' }}>
-          <a
-            href="https://sawutser.top/4/9316829"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: '#666',
-              textDecoration: 'none',
-              fontSize: '0.9rem',
-            }}
-            onMouseOver={(e) => (e.target.style.textDecoration = 'underline')}
-            onMouseOut={(e) => (e.target.style.textDecoration = 'none')}
-          >
-            Descubre más ofertas
-          </a>
-        </div>
       </body>
     </html>
   );
