@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import ServiceWorkerRegister from '../components/ServiceWorkerRegister';
 
 export default function Home() {
   const [image, setImage] = useState(null);
@@ -300,6 +301,7 @@ export default function Home() {
         <span> | Desarrollado por </span>
         <a href="https://buymeacoffee.com/carlosespinoza" target="_blank" rel="noopener noreferrer">Carlos Espinoza</a>
       </footer>
+      <ServiceWorkerRegister /> {/* Añade el componente aquí */}
     </div>
   );
 }
