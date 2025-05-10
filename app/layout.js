@@ -38,11 +38,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/favicon.ico?v=3" />
         <meta name="monetag" content="de9eb78f0da9aa39257142df32b3370d" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9317103,document.createElement('script'));`,
-          }}
-        />
+        <script src={`https://groleegni.net/401/9317103`} async></script>
       </head>
       <body>
         {children}
