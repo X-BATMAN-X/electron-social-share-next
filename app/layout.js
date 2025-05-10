@@ -41,6 +41,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
+        <script src="https://ligheechoagool.com/88/tag.min.js" data-zone="146633" async data-cfasync="false"></script>
       </body>
     </html>
   );
