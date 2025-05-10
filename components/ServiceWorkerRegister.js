@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 
 export default function ServiceWorkerRegister() {
+  // Desactivado temporalmente porque no hay sw.js
+  /*
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -17,6 +19,7 @@ export default function ServiceWorkerRegister() {
       });
     }
   }, []);
+  */
 
-  return null; // No renderiza nada, solo registra el Service Worker
+  return null;
 }
