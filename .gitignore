@@ -3,6 +3,8 @@ node_modules/
 .next/
 node_modules/
 out/
+.env
+.vercel/
 
 
 # Archivos de compilación y caché
