@@ -12,10 +12,10 @@ export default function PrivacyPolicy() {
           <li>Títulos, descripciones y URLs proporcionados por los usuarios.</li>
           <li>Enlaces generados temporalmente para compartir en redes sociales.</li>
         </ul>
-        Esta información se almacena temporalmente en nuestra base de datos (Vercel KV) y se elimina automáticamente después de 24 horas.
+        Esta información se almacena temporalmente en nuestra base de datos (Supabase) y se elimina automáticamente después de 30 días.
       </p>
 
-      <h2>2. Uso de la información</h2>
+      <h2>2. Uso de la información y eliminación de datos</h2>
       <p>
         Utilizamos la información recopilada únicamente para:
         <ul>
@@ -23,6 +23,9 @@ export default function PrivacyPolicy() {
           <li>Mejorar la funcionalidad y experiencia de la aplicación.</li>
         </ul>
         No compartimos ni vendemos tus datos a terceros.
+      </p>
+      <p>
+        Si deseas eliminar los datos que has proporcionado (como imágenes, títulos, descripciones o URLs), puedes solicitarlo siguiendo las instrucciones en nuestra página de <a href="https://comparte.vercel.app/data-deletion-instructions" target="_blank" rel="noopener noreferrer">Instrucciones para la eliminación de datos</a>. Procesaremos tu solicitud dentro de los 30 días.
       </p>
 
       <h2>3. Cookies y tecnologías similares</h2>
@@ -32,7 +35,7 @@ export default function PrivacyPolicy() {
 
       <h2>4. Seguridad</h2>
       <p>
-        Tomamos medidas razonables para proteger tu información, pero no podemos garantizar una seguridad absoluta. Los enlaces generados son temporales y se eliminan después de 24 horas.
+        Tomamos medidas razonables para proteger tu información, pero no podemos garantizar una seguridad absoluta. Los enlaces generados son temporales y se eliminan después de 30 días.
       </p>
 
       <h2>5. Cambios en esta política</h2>
