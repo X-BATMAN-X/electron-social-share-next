@@ -1,8 +1,9 @@
 # Dependencias
 node_modules/
 .next/
-.vercel
+node_modules/
 out/
+
 
 # Archivos de compilación y caché
 build/
