@@ -38,12 +38,13 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="icon" href="/favicon.ico?v=3" />
         <meta name="monetag" content="de9eb78f0da9aa39257142df32b3370d" />
+        <meta name="google-site-verification" content="tczqdNNRzSaisRp3utjqSK7UK9iYLg-dGJHicsBYyI0" />
       </head>
       <body>
         {children}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9317103,document.createElement('script'));`,  
+            __html: `(function(d,z,s){s.src='https://'+d+'/401/'+z;try{(document.body||document.documentElement).appendChild(s)}catch(e){}})('groleegni.net',9317103,document.createElement('script'));`,
           }}
         />
       </body>
