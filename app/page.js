@@ -148,8 +148,8 @@ export default function Home() {
   return (
     <div className="container">
       <section className="intro">
-        <h1>Comparte enlaces como un profesional</h1>
-        <p>Promociona tu negocio y haz crecer tu base de clientes con marketing, redes sociales y herramientas SEO.</p>
+        <h1>Comparte, una app para crear contenido</h1>
+        <p>Publica tus imagenes con enlaces directos en redes sociales.</p>
       </section>
 
       <section className="hero-image">
@@ -165,7 +165,7 @@ export default function Home() {
       </section>
 
       <section className="intro-text">
-        <p>Incrusta tu URL en una imagen y compártela en redes sociales con un solo clic.</p>
+        <p>Usa Comparte para hacer tus publicaciones… ¡es gratis!</p>
       </section>
 
       <section className="form-section">
@@ -266,21 +266,14 @@ export default function Home() {
 
       <section className="faq-section">
         <h2>Preguntas Frecuentes</h2>
-        <h3>¿Qué es Comparte tu enlace con una imagen?</h3>
-        <p>Comparte tu enlace con una imagen es una herramienta que te permite transformar imágenes en tarjetas sociales clicables que dirigen a cualquier página web que elijas. Comparte estas tarjetas en plataformas como Facebook, Twitter, LinkedIn y WhatsApp para atraer más tráfico a tu sitio web.</p>
+        <h3>¿Qué es Comparte?</h3>
+        <p>Comparte es una app para crear publicaciones con enlaces usando imágenes. Funciona en redes como Facebook, Instagram, WhatsApp y más.</p>
         <h3>¿Cómo uso la aplicación?</h3>
-        <p>Sigue estos pasos para compartir tu enlace:</p>
-        <ol>
-          <li>Haz clic en Seleccionar archivo para elegir una imagen desde tu dispositivo. La aplicación te mostrará una vista previa.</li>
-          <li>Ingresa un título, una descripción y la URL de destino. La URL de destino es la dirección del sitio web al que quieres dirigir a las personas cuando hagan clic en la tarjeta.</li>
-          <li>Una vez que hayas completado todos los campos, redacta una publicación en la red social de tu elección. Al publicarla, la plataforma convertirá automáticamente el enlace en una tarjeta social clicable.</li>
-        </ol>
-        <h3>¿Qué es una tarjeta social clicable?</h3>
-        <p>Una tarjeta social clicable es un elemento visual que te permite personalizar cómo se ve un enlace cuando lo compartes en redes sociales. Al compartir una URL, puedes especificar la imagen, el título y la descripción que aparecerán, para que otros sepan de qué trata el enlace antes de hacer clic.</p>
+        <p>Selecciona una imagen, añade tu enlace y compártela.</p>
         <h3>¿Qué tan efectivas son las tarjetas sociales clicables?</h3>
-        <p>Las tarjetas sociales clicables son una forma efectiva de aumentar la participación y generar más tráfico desde las redes sociales. Puedes usarlas para promocionar productos, servicios, publicaciones de blog, descargas de aplicaciones, páginas de destino, formularios de registro y más. ¡La aplicación te permite usarlas para cualquier propósito!</p>
+        <p>Las tarjetas sociales son una forma efectiva de generar más tráfico desde redes sociales. Puedes usarlas para promocionar productos, servicios, publicaciones de blog, descargas de aplicaciones, páginas de destino, formularios de registro o enlaces de afiliado.</p>
         <h3>¿Los enlaces compartidos caducan?</h3>
-        <p>Los enlaces que compartes en las redes sociales no caducan, ya que son las URLs de destino que tú proporcionas. Una vez compartidos, las plataformas sociales los convierten en tarjetas sociales clicables que dirigirán a los usuarios a tu URL de destino.</p>
+        <p>Los enlaces que compartes en redes sociales no caducan, ya que son las URLs de destino que tú proporcionas. Una vez publicados, las plataformas los convierten en tarjetas que dirigen a los usuarios a tu enlace.</p>
       </section>
 
       <section className="faq-image">
