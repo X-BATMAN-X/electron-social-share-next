@@ -212,7 +212,7 @@ export default function Home() {
               onClick={handleImageClick}
             />
           ) : (
-            <p>Selecciona una imagen para ver la vista previa</p>
+            <p>Sube una imagen con dimensiones de 1200x630px o de 1080x1080px para evitar recortes en la publicación.</p>
           )}
           {isLoading && <p>Subiendo imagen...</p>}
         </div>
