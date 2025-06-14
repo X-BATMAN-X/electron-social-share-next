@@ -212,7 +212,7 @@ export default function Home() {
               onClick={handleImageClick}
             />
           ) : (
-            <p>Sube una imagen con dimensiones de 1200x630px o de 1080x1080px para evitar recortes en la publicación.</p>
+            <p>Sube una imagen de 1200x630px | 1080x1080px para evitar recortes.</p>
           )}
           {isLoading && <p>Subiendo imagen...</p>}
         </div>
